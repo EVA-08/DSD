@@ -1,6 +1,5 @@
 package controller;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,15 +30,21 @@ public class movieController implements Initializable {
         String path = "file:///" + getClass().getResource("/resources/movie.mp4").getPath();
         Media media = new Media(path);
         player = new MediaPlayer(media);
+        player.setOnEndOfMedia(() -> {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("../view/loginUI.fxml"));
+                Parent root = loader.load();
+                LoginController controller = loader.getController();
+                controller.setStage(stage);
+                player.stop();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         movieMediaView.setMediaPlayer(player);
-        pane.setOnKeyPressed((event) -> {
-
-        });
-        Platform.runLater(() -> {
-            movieMediaView.setFitHeight(stage.getHeight());
-            movieMediaView.setFitWidth(stage.getWidth());
-        });
-
         player.setAutoPlay(true);
     }
 

@@ -220,7 +220,7 @@ public class LoginController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         Thread musicThread = new Thread(() -> {
             System.out.println(getClass().getResource("/").getPath());
-            String path = "file:///" + getClass().getResource("/resources/2.mp3").getPath();
+            String path = "file:///" + getClass().getResource("/resources/backgroundMusic.mp3").getPath();
             System.out.println(path);
             Media media = new Media(path);
             MediaPlayer player = new MediaPlayer(media);

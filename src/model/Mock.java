@@ -65,4 +65,8 @@ class Mock {
         list.add("card1");
         return list;
     }
+
+    static void leave() {
+
+    }
 }

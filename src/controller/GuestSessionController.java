@@ -111,6 +111,9 @@ public class GuestSessionController implements Initializable {
             });
             adminOptionsListTask.cancel(true);
             adminPlayersListTask.cancel(true);
+            Thread leaveThread = new Thread(Invoker::leave);
+            leaveThread.setDaemon(true);
+            leaveThread.start();
         } catch (IOException e) {
             e.printStackTrace();
         }

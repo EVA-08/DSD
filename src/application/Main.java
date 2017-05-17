@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 public class Main extends Application {
@@ -22,6 +23,7 @@ public class Main extends Application {
             movieController controller = loader.getController();
             controller.setStage(primaryStage);
             primaryStage.setScene(new Scene(root));
+            primaryStage.initStyle(StageStyle.UTILITY);
             primaryStage.show();
 
         } catch(Exception e) {

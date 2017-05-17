@@ -2,29 +2,52 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.Group?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="403.0" prefWidth="553.0"
-            xmlns="http://javafx.com/javafx/8" fx:controller="controller.HostSessionController">
-    <children>
-        <ListView fx:id="playersListView" layoutX="94.0" layoutY="39.0" prefHeight="259.0" prefWidth="147.0"/>
-        <Group fx:id="optionsGroup" layoutX="60.0" layoutY="-25.0">
-            <children>
-                <ChoiceBox fx:id="cardChoiceBox" layoutX="279.0" layoutY="239.0" prefWidth="150.0"/>
-                <ChoiceBox fx:id="playerNumberChoiceBox" layoutX="279.0" layoutY="53.0" prefWidth="150.0"/>
-                <ChoiceBox fx:id="mapChoiceBox" layoutX="279.0" layoutY="111.0" prefWidth="150.0"/>
-                <ChoiceBox fx:id="ruleChoiceBox" layoutX="279.0" layoutY="164.0" prefWidth="150.0"/>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8"
+            fx:controller="controller.HostSessionController">
+
+    <ImageView fitHeight="480.0" fitWidth="720.0" pickOnBounds="true" preserveRatio="true">
+
+        <Image url="@../resources/HostSession.jpg"/>
+
+    </ImageView>
+    <ListView fx:id="playersListView" layoutX="148.0" layoutY="60.0" opacity="0.8" prefHeight="259.0"
+              prefWidth="147.0"/>
+    <Group fx:id="optionsGroup" layoutX="147.0" layoutY="7.0">
+
+        <ChoiceBox fx:id="cardChoiceBox" layoutX="279.0" layoutY="239.0" opacity="0.8" prefWidth="150.0"/>
+        <ChoiceBox fx:id="playerNumberChoiceBox" layoutX="279.0" layoutY="53.0" opacity="0.8"
+                   prefWidth="150.0"/>
+        <ChoiceBox fx:id="mapChoiceBox" layoutX="279.0" layoutY="111.0" opacity="0.8" prefWidth="150.0"/>
+        <ChoiceBox fx:id="ruleChoiceBox" layoutX="279.0" layoutY="164.0" opacity="0.8" prefWidth="150.0"/>
                 <Button fx:id="changeButton" layoutX="369.0" layoutY="311.0" mnemonicParsing="false"
-                        onAction="#changeOptionsHandler" text="Change"/>
-            </children>
-        </Group>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="94.0" layoutY="14.0" prefHeight="15.0"
-               prefWidth="147.0" text="Players List" textAlignment="CENTER"/>
-        <Button fx:id="inviteButton" layoutX="94.0" layoutY="317.0" mnemonicParsing="false"
-                onAction="#inviteButtonHandler" text="Invite Players"/>
+                        onAction="#changeOptionsHandler" opacity="0.8" prefHeight="32.0" prefWidth="72.0" text="Change">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+
+    </Group>
+    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="94.0" layoutY="21.0" prefHeight="15.0"
+           prefWidth="147.0" text="Players List" textAlignment="CENTER"/>
+    <Button fx:id="inviteButton" layoutX="186.0" layoutY="316.0" mnemonicParsing="false"
+            onAction="#inviteButtonHandler" opacity="0.8" prefHeight="35.0" prefWidth="110.0" text="Invite Players">
+        <font>
+            <Font size="14.0"/>
+        </font>
+    </Button>
         <Label fx:id="warningLabel" alignment="CENTER" layoutX="148.0" layoutY="361.0" prefHeight="15.0"
                prefWidth="211.0" text="Label" textFill="RED" visible="false"/>
-        <Button fx:id="startButton" layoutX="205.0" layoutY="346.0" mnemonicParsing="false"
-                onAction="#startButtonHandler" prefHeight="45.0" prefWidth="184.0" text="Start"/>
-        <Button mnemonicParsing="false" onAction="#backButtonHandler" prefHeight="29.0" prefWidth="55.0" text="Back"/>
-    </children>
+    <Button fx:id="startButton" layoutX="267.0" layoutY="395.0" mnemonicParsing="false"
+            onAction="#startButtonHandler" opacity="0.8" prefHeight="45.0" prefWidth="184.0" text="Start">
+        <font>
+            <Font name="System Bold" size="16.0"/>
+        </font>
+    </Button>
+    <Button mnemonicParsing="false" onAction="#backButtonHandler" opacity="0.8" prefHeight="45.0" prefWidth="57.0"
+            text="Back"/>
+
 </AnchorPane>

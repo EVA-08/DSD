@@ -1,23 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="265.0" prefWidth="345.0"
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="300.0" prefWidth="360.0"
             xmlns="http://javafx.com/javafx/8" fx:controller="controller.CreateNewAccountController">
-    <children>
-        <Label layoutX="37.0" layoutY="26.0" text="username:"/>
-        <Label layoutX="38.0" layoutY="65.0" text="password:"/>
-        <Label layoutX="14.0" layoutY="105.0" text="confirm password:"/>
-        <Label layoutX="48.0" layoutY="149.0" text="E-mail:"/>
-        <TextField fx:id="usernameField" layoutX="156.0" layoutY="22.0"/>
-        <PasswordField fx:id="passwordField" layoutX="156.0" layoutY="61.0"/>
-        <PasswordField fx:id="confirmPasswordField" layoutX="156.0" layoutY="101.0"/>
-        <TextField fx:id="emailField" layoutX="156.0" layoutY="145.0"/>
-        <Button fx:id="confirmButton" layoutX="90.0" layoutY="212.0" mnemonicParsing="false" onAction="#confirmHandler"
-                text="confirm"/>
-        <Button fx:id="cancelButton" layoutX="203.0" layoutY="212.0" mnemonicParsing="false" onAction="#cancelHandler"
-                text="cancel"/>
-        <Label fx:id="warningLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="156.0" layoutY="178.0"
-               prefHeight="23.0" prefWidth="161.0" text="warningLabel" textFill="RED" visible="false"/>
-    </children>
+
+   <ImageView fitHeight="300.0" fitWidth="360.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
+
+      <Image url="@../resources/CreateNewAccount.jpg"/>
+
+   </ImageView>
+   <Label layoutX="44.0" layoutY="23.0" text="Username:" textFill="WHITE">
+      <font>
+         <Font size="16.0"/>
+      </font>
+   </Label>
+   <Label layoutX="44.0" layoutY="63.0" text="Password:" textFill="WHITE">
+      <font>
+         <Font size="16.0"/>
+      </font>
+   </Label>
+   <Label layoutX="5.0" layoutY="102.0" text="Confirm password:" textFill="#fffdfd">
+      <font>
+         <Font size="16.0"/>
+      </font>
+   </Label>
+   <Label layoutX="54.0" layoutY="147.0" text="E-mail:" textFill="WHITE">
+      <font>
+         <Font size="16.0"/>
+      </font>
+   </Label>
+   <TextField fx:id="usernameField" layoutX="156.0" layoutY="22.0" promptText="Please input username"/>
+   <PasswordField fx:id="passwordField" layoutX="156.0" layoutY="61.0" promptText="Please input password"/>
+   <PasswordField fx:id="confirmPasswordField" layoutX="156.0" layoutY="101.0" promptText="Input password again"/>
+   <TextField fx:id="emailField" layoutX="156.0" layoutY="145.0" promptText="Pleasr input your email"/>
+   <Button fx:id="confirmButton" layoutX="77.0" layoutY="223.0" mnemonicParsing="false" onAction="#confirmHandler"
+           prefHeight="29.0" prefWidth="72.0" text="Confirm">
+      <font>
+         <Font name="System Bold" size="12.0"/>
+      </font>
+   </Button>
+   <Button fx:id="cancelButton" layoutX="209.0" layoutY="223.0" mnemonicParsing="false" onAction="#cancelHandler"
+           prefHeight="29.0" prefWidth="67.0" text="Cancel">
+      <font>
+         <Font name="System Bold" size="12.0"/>
+      </font>
+   </Button>
+   <Label fx:id="warningLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="66.0" layoutY="178.0"
+          prefHeight="23.0" prefWidth="251.0" text="warningLabel" textFill="RED" visible="false">
+      <font>
+         <Font size="16.0"/>
+      </font>
+   </Label>
+
 </AnchorPane>

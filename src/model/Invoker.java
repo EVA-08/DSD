@@ -41,4 +41,8 @@ public class Invoker {
     static public List<String> getOptions() throws InterruptedException {
         return Mock.getOptions();
     }
+
+    static public void leave() {
+        Mock.leave();
+    }
 }
