@@ -6,7 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -20,13 +22,10 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-/**
- * Created by EVA-08 on 2017/5/12.
- */
 public class GameHallController implements Initializable {
-    boolean showing = false;
-    String hostname = "";
-    String sessionID = "";
+    private boolean showing = false;
+    private String hostname = "";
+    private String sessionID = "";
     @FXML
     private Button newSessionButton;
     @FXML
@@ -42,7 +41,7 @@ public class GameHallController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        invitationTask = new FutureTask<Void>(() -> {
+        invitationTask = new FutureTask<>(() -> {
             try {
                 while (!Thread.currentThread().isInterrupted()) {
                     //info = hostname + " " + sessionID
@@ -59,6 +58,9 @@ public class GameHallController implements Initializable {
             }
             return null;
         });
+        Thread invitationThread = new Thread(invitationTask);
+        invitationThread.setDaemon(true);
+        invitationThread.start();
     }
 
     private void showInvitation(String hostname) {
@@ -72,7 +74,7 @@ public class GameHallController implements Initializable {
     private void newSessionHandler() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("../view/sessionUI.FXML"));
+            loader.setLocation(getClass().getResource("../view/hostSessionUI.fxml"));
             Parent newRoot = loader.load();
             HostSessionController controller = loader.getController();
             controller.setStage(stage);
@@ -85,21 +87,48 @@ public class GameHallController implements Initializable {
 
     @FXML
     private void acceptButtonHandler() {
-        FutureTask<Integer> joinSessionTask = new FutureTask<Integer>(() -> {
-            return Invoker.joinSession(hostname, sessionID);
-        });
-        Thread adminJoinSession = new Thread(() -> {
+        FutureTask<Integer> joinSessionTask = new FutureTask<>(() -> Invoker.joinSession(hostname, sessionID));
+        Thread joinSessionThread = new Thread(joinSessionTask);
+        joinSessionThread.setDaemon(true);
+        joinSessionThread.start();
+        Thread adminJoinSessionThread = new Thread(() -> {
+            int result;
             try {
-                int result = joinSessionTask.get(5, TimeUnit.SECONDS);
-                if (result == 1) {
-                    FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("../view/guestSessionUI.fxml"));
-
-                }
+                result = joinSessionTask.get(5, TimeUnit.SECONDS);
             } catch (InterruptedException | ExecutionException | TimeoutException e) {
                 e.printStackTrace();
+                result = -1;
             }
+            if (result == 1) {
+                try {
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("../view/guestSessionUI.fxml"));
+                    Parent root = loader.load();
+                    GuestSessionController controller = loader.getController();
+                    controller.setStage(stage);
+                    Platform.runLater(() -> {
+                        stage.setScene(new Scene(root));
+                        stage.show();
+                    });
+                    invitationTask.cancel(true);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else if (result == 0) {
+                Platform.runLater(() -> invitationPane.setVisible(false));
+                Alert alert = new Alert(Alert.AlertType.INFORMATION,
+                        "Session Full", ButtonType.CLOSE);
+                alert.showAndWait();
+            } else if (result == -1) {
+                Platform.runLater(() -> invitationPane.setVisible(false));
+                Alert alert = new Alert(Alert.AlertType.INFORMATION,
+                        "Network Error", ButtonType.CLOSE);
+                alert.showAndWait();
+            }
+
         });
+        adminJoinSessionThread.setDaemon(true);
+        adminJoinSessionThread.start();
     }
 
     @FXML

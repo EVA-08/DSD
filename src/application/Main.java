@@ -1,5 +1,6 @@
 package application;
 
+import controller.movieController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,10 +17,13 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
 		try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("../view/loginUI.fxml"));
+            loader.setLocation(getClass().getResource("../view/movieUI.fxml"));
             Parent root = loader.load();
+            movieController controller = loader.getController();
+            controller.setStage(primaryStage);
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
+
         } catch(Exception e) {
 			e.printStackTrace();
 		}

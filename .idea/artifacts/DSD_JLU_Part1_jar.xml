@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact name="DSD_JLU_Part1:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/DSD_JLU_Part1_jar</output-path>
+    <root id="root">
+      <element id="archive" name="DSD_JLU_Part1.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+        </element>
+        <element id="module-output" name="DSD_JLU_Part1" />
+      </element>
+    </root>
+  </artifact>
+</component>

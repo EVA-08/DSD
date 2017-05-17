@@ -2,16 +2,26 @@ package controller;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.Invoker;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
@@ -19,11 +29,11 @@ import java.util.concurrent.TimeoutException;
 
 import static javafx.scene.paint.Color.color;
 
-public class LoginController {
+public class LoginController implements Initializable {
     @FXML
-    private TextField usernameTextField;
+    private TextField usernameField;
     @FXML
-    private PasswordField passwordTextField;
+    private PasswordField passwordField;
     @FXML
     private Button loginButton;
     @FXML
@@ -46,28 +56,36 @@ public class LoginController {
     private Circle circle7;
 
     @FXML
+    private Label warningLabel;
+    @FXML
+    private Hyperlink createNewAccountLink;
+
+
+    private Stage stage;
+
+    @FXML
     private void loginHandler() {
-        String username = usernameTextField.getText();
-        String password = passwordTextField.getText();
+        String username = usernameField.getText();
+        String password = passwordField.getText();
         if (username == null || username.length() == 0 ||
                 password == null || password.length() == 0) {
-            Alert alertDialog = new Alert(AlertType.NONE,
-                    "Please input your username and password", ButtonType.CLOSE);
-            alertDialog.showAndWait();
+            warningLabel.setVisible(true);
+            warningLabel.setText("Please input your username and password");
         } else {
             //Start a thread to validate user info.
-            @SuppressWarnings("unchecked")
-            FutureTask<Integer> validateUserInfoTask = new FutureTask<>(() -> {
+            warningLabel.setVisible(false);
+            root.setDisable(true);
+            FutureTask<Integer> validateLoginTask = new FutureTask<>(() -> {
                 try {
-                    return Invoker.validateUserInfo(username, password);
+                    return Invoker.validateLogin(username, password);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                     return -1;
                 }
             });
-            Thread validateUserInfoThread = new Thread(validateUserInfoTask);
-            validateUserInfoThread.setDaemon(true);
-            validateUserInfoThread.start();
+            Thread validateLoginThread = new Thread(validateLoginTask);
+            validateLoginThread.setDaemon(true);
+            validateLoginThread.start();
             //Start a thread to render login animation.
             Thread showLoginAnimationThread = new Thread(this::showLoginAnimation);
             showLoginAnimationThread.setDaemon(true);
@@ -77,25 +95,22 @@ public class LoginController {
             Thread adminThread = new Thread(() -> {
                 Integer result;
                 try {
-                    result = validateUserInfoTask.get(5, TimeUnit.SECONDS);
+                    result = validateLoginTask.get(5, TimeUnit.SECONDS);
                 } catch (InterruptedException | ExecutionException | TimeoutException e) {
                     result = null;
                 }
                 showLoginAnimationThread.interrupt();
-                if (result == null) {
-                    Platform.runLater(() -> {
-                        Alert alertDialog = new Alert(AlertType.INFORMATION,
-                                "Network Error", ButtonType.CLOSE);
-                        alertDialog.showAndWait();
-                    });
+                Platform.runLater(() -> {
+                    root.setDisable(false);
+                    warningLabel.setVisible(true);
+                });
+                if (result == null || result == -1) {
+                    Platform.runLater(() -> warningLabel.setText("Network Error"));
                 } else if (result == 0) {
-                    Platform.runLater(() -> {
-                        Alert alertDialog = new Alert(AlertType.INFORMATION,
-                                "Wrong username or password", ButtonType.CLOSE);
-                        alertDialog.showAndWait();
-                    });
-                } else {
-                    System.out.println("1");
+                    Platform.runLater(() -> warningLabel.setText("Wrong username or password"));
+                } else if (result == 1) {
+                    warningLabel.setVisible(false);
+                    Platform.runLater(this::enterGameHall);
                 }
             });
             adminThread.setDaemon(true);
@@ -130,7 +145,7 @@ public class LoginController {
         circles.add(circle6);
         circles.add(circle7);
         Platform.runLater(() -> {
-            root.setDisable(true);
+
             for (Circle circle : circles) {
                 circle.setVisible(true);
                 circle.setRadius(smallRadius);
@@ -159,9 +174,60 @@ public class LoginController {
                 for (Circle circle : circles) {
                     circle.setVisible(false);
                 }
-                root.setDisable(false);
             });
             System.out.println("animation over");
         }
+    }
+
+    @FXML
+    private void createNewAccountHandler() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../view/createNewAccountUI.fxml"));
+            Parent newRoot = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(newRoot));
+            CreateNewAccountController controller = loader.getController();
+            controller.setStage(stage);
+            stage.initOwner(this.stage);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    private void enterGameHall() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../view/gameHallUI.fxml"));
+            Parent root = loader.load();
+            GameHallController controller = loader.getController();
+            controller.setStage(stage);
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Thread musicThread = new Thread(() -> {
+            System.out.println(getClass().getResource("/").getPath());
+            String path = "file:///" + getClass().getResource("/resources/2.mp3").getPath();
+            System.out.println(path);
+            Media media = new Media(path);
+            MediaPlayer player = new MediaPlayer(media);
+            player.setCycleCount(Integer.MAX_VALUE);
+            player.setAutoPlay(true);
+        });
+        musicThread.setDaemon(true);
+        musicThread.start();
     }
 }

@@ -6,30 +6,39 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="423.0" prefWidth="574.0"
             style="-fx-background-color: #444444;" xmlns="http://javafx.com/javafx/8"
             fx:controller="controller.LoginController">
+    <children>
 
-    <TextField fx:id="usernameTextField" layoutX="207.0" layoutY="132.0" style="-fx-background-color: #aaaaaa;"/>
-    <Label layoutX="101.0" layoutY="136.0" style="-fx-text-fill: white;" text="username:"/>
-    <Label layoutX="102.0" layoutY="212.0" style="-fx-text-fill: white;" text="password:"/>
-    <Button fx:id="loginButton" layoutX="209.0" layoutY="280.0" mnemonicParsing="false" onAction="#loginHandler"
-            onMouseEntered="#loginButtonOnMouseEntered" onMouseExited="#loginButtonOnMouseExited" prefHeight="66.0"
-            prefWidth="161.0" text="login"/>
-    <Hyperlink layoutX="223.0" layoutY="369.0" text="create new account"/>
-    <PasswordField fx:id="passwordTextField" layoutX="209.0" layoutY="208.0"
-                   style="-fx-background-color: #aaaaaa;"/>
-    <Circle fx:id="circle0" fill="#9e9e9e" layoutX="436.0" layoutY="288.0" radius="8.0" stroke="BLACK"
-            strokeType="INSIDE" visible="false"/>
-    <Circle fx:id="circle1" fill="#9e9e9e" layoutX="453.0" layoutY="296.0" radius="8.0" stroke="BLACK"
-            strokeType="INSIDE" visible="false"/>
-    <Circle fx:id="circle2" fill="#9e9e9e" layoutX="461.0" layoutY="313.0" radius="8.0" stroke="BLACK"
-            strokeType="INSIDE" visible="false"/>
-    <Circle fx:id="circle3" fill="#9e9e9e" layoutX="453.0" layoutY="330.0" radius="8.0" stroke="BLACK"
-            strokeType="INSIDE" visible="false"/>
-    <Circle fx:id="circle4" fill="#9e9e9e" layoutX="436.0" layoutY="338.0" radius="8.0" stroke="BLACK"
-            strokeType="INSIDE" visible="false"/>
-    <Circle fx:id="circle7" fill="#9e9e9e" layoutX="419.0" layoutY="296.0" radius="8.0" stroke="BLACK"
-            strokeType="INSIDE" visible="false"/>
-    <Circle fx:id="circle6" fill="#9e9e9e" layoutX="411.0" layoutY="313.0" radius="8.0" stroke="BLACK"
-            strokeType="INSIDE" visible="false"/>
-    <Circle fx:id="circle5" fill="#9e9e9e" layoutX="419.0" layoutY="331.0" radius="8.0" stroke="BLACK"
-            strokeType="INSIDE" visible="false"/>
+        <TextField fx:id="usernameField" layoutX="207.0" layoutY="132.0" style="-fx-background-color: #aaaaaa;"/>
+        <Label layoutX="101.0" layoutY="136.0" style="-fx-text-fill: white;" text="username:"/>
+        <Label layoutX="102.0" layoutY="185.0" style="-fx-text-fill: white;" text="password:"/>
+        <Button fx:id="loginButton" layoutX="209.0" layoutY="247.0" mnemonicParsing="false" onAction="#loginHandler"
+                onMouseEntered="#loginButtonOnMouseEntered" onMouseExited="#loginButtonOnMouseExited" prefHeight="66.0"
+                prefWidth="161.0" text="login"/>
+        <Hyperlink fx:id="createNewAccountLink" layoutX="227.0" layoutY="346.0" onAction="#createNewAccountHandler"
+                   text="create new account"/>
+        <PasswordField fx:id="passwordField" layoutX="209.0" layoutY="181.0" style="-fx-background-color: #aaaaaa;"/>
+        <AnchorPane layoutX="403.0" layoutY="251.0">
+            <children>
+                <Circle fx:id="circle6" fill="#9e9e9e" layoutY="25.0" radius="8.0" stroke="BLACK" strokeType="INSIDE"
+                        visible="false"/>
+                <Circle fx:id="circle1" fill="#9e9e9e" layoutX="42.0" layoutY="8.0" radius="8.0" stroke="BLACK"
+                        strokeType="INSIDE" visible="false"/>
+                <Circle fx:id="circle4" fill="#9e9e9e" layoutX="25.0" layoutY="50.0" radius="8.0" stroke="BLACK"
+                        strokeType="INSIDE" visible="false"/>
+                <Circle fx:id="circle7" fill="#9e9e9e" layoutX="8.0" layoutY="8.0" radius="8.0" stroke="BLACK"
+                        strokeType="INSIDE" visible="false"/>
+                <Circle fx:id="circle2" fill="#9e9e9e" layoutX="50.0" layoutY="25.0" radius="8.0" stroke="BLACK"
+                        strokeType="INSIDE" visible="false"/>
+                <Circle fx:id="circle3" fill="#9e9e9e" layoutX="42.0" layoutY="42.0" radius="8.0" stroke="BLACK"
+                        strokeType="INSIDE" visible="false"/>
+                <Circle fx:id="circle0" fill="#9e9e9e" layoutX="25.0" radius="8.0" stroke="BLACK" strokeType="INSIDE"
+                        visible="false"/>
+                <Circle fx:id="circle5" fill="#9e9e9e" layoutX="8.0" layoutY="43.0" radius="8.0" stroke="BLACK"
+                        strokeType="INSIDE" visible="false"/>
+            </children>
+        </AnchorPane>
+        <Label fx:id="warningLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="210.0" layoutY="219.0"
+               nodeOrientation="LEFT_TO_RIGHT" prefHeight="16.0" prefWidth="161.0" text="sdfsdfsdfsdfsdfdsdf"
+               textFill="RED" visible="false"/>
+    </children>
 </AnchorPane>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" onDragDetected="#backButtonHandler"
+            prefHeight="403.0" prefWidth="553.0" xmlns="http://javafx.com/javafx/8"
+            fx:controller="controller.GuestSessionController">
+    <children>
+        <ListView fx:id="playersListView" layoutX="94.0" layoutY="39.0" prefHeight="259.0" prefWidth="147.0"/>
+        <Group fx:id="optionsGroup" disable="true" layoutX="60.0" layoutY="-25.0">
+            <children>
+                <ChoiceBox fx:id="cardChoiceBox" layoutX="279.0" layoutY="239.0" prefWidth="150.0"/>
+                <ChoiceBox fx:id="playerNumberChoiceBox" layoutX="279.0" layoutY="53.0" prefWidth="150.0"/>
+                <ChoiceBox fx:id="mapChoiceBox" layoutX="279.0" layoutY="111.0" prefWidth="150.0"/>
+                <ChoiceBox fx:id="ruleChoiceBox" layoutX="279.0" layoutY="164.0" prefWidth="150.0"/>
+            </children>
+        </Group>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="94.0" layoutY="14.0" prefHeight="15.0"
+               prefWidth="147.0" text="Players List" textAlignment="CENTER"/>
+        <Label fx:id="warningLabel" alignment="CENTER" layoutX="148.0" layoutY="361.0" prefHeight="15.0"
+               prefWidth="211.0" text="Label" textFill="RED" visible="false"/>
+        <Button fx:id="readyButton" layoutX="205.0" layoutY="346.0" mnemonicParsing="false"
+                onAction="#readyButtonHandler" prefHeight="45.0" prefWidth="184.0" text="Ready"/>
+        <Button mnemonicParsing="false" onAction="#backButtonHandler" prefHeight="34.0" prefWidth="55.0" text="back"/>
+    </children>
+</AnchorPane>
