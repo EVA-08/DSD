@@ -1,5 +1,7 @@
 package model;
 
+import gmc.GMC_Shell;
+
 import java.util.List;
 
 public class Invoker {
@@ -45,4 +47,9 @@ public class Invoker {
     static public void leave() {
         Mock.leave();
     }
+
+    static public void sendGameState(String json) {
+        new GMC_Shell().initGame(json);
+    }
+
 }

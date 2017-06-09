@@ -16,6 +16,7 @@ import model.Invoker;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
@@ -135,5 +136,32 @@ public class GameHallController implements Initializable {
     private void refuseButtonHandler() {
         showing = false;
         invitationPane.setVisible(false);
+    }
+
+    @FXML
+    private void logoutButtonHandler() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Do you want to logout?");
+        alert.setHeaderText(null);
+        alert.setTitle("Confirmation");
+        ButtonType yes = new ButtonType("Yes");
+        ButtonType no = new ButtonType("No");
+        alert.getButtonTypes().setAll(yes, no);
+        Optional<ButtonType> buttonType = alert.showAndWait();
+        if (buttonType.isPresent() && buttonType.get() == yes) {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("../view/loginUI.fxml"));
+                Parent root = loader.load();
+                LoginController controller = loader.getController();
+                controller.setStage(stage);
+                Platform.runLater(() -> {
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

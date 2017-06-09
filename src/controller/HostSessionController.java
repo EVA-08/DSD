@@ -16,13 +16,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.GameState;
 import model.Invoker;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
@@ -169,13 +168,24 @@ public class HostSessionController implements Initializable {
     @FXML
     private void startButtonHandler() {
         //consider about that a player will leave or a player will come
+        sendGameSetup();
+        sendGameState();
+    }
+
+    private void sendGameSetup() {
         String[] colors = {"#000000", "#0000FF", "#00FF00", "#00FFFF",
                 "#FF0000", "#FF00FF", "#FFFF00", "#FFFFFF"};
-        List<Pair> players = new ArrayList<>();
+        List<GameSetup.PlayerColorPair> players = new ArrayList<>();
         for (int i = 0; i < playersListView.getItems().size(); i++) {
-            players.add(new Pair(playersListView.getItems().get(i), colors[i]));
+            players.add(new GameSetup.PlayerColorPair(playersListView.getItems().get(i), colors[i]));
         }
-        GameSetup gameSetup = new GameSetup(mapChoiceBox.getValue(), players);
+        Map<String, Boolean> rules = new HashMap<>();
+        for (String rule : ruleChoiceBox.getItems()) {
+            rules.put(rule, false);
+        }
+        String rule = ruleChoiceBox.getValue();
+        rules.put(rule, true);
+        GameSetup gameSetup = new GameSetup(mapChoiceBox.getValue(), rules, players);
         ObjectMapper mapper = new ObjectMapper();
         String json = "";
         try {
@@ -185,6 +195,41 @@ public class HostSessionController implements Initializable {
             e.printStackTrace();
         }
         System.out.println(json);
+    }
+
+    private void sendGameState() {
+        final int normalCardNum = 42;
+        final int wildCardNum = 2;
+        final int cardType = 3;
+        GameState gameState = new GameState();
+        GameState.Army[] map = new GameState.Army[42];
+        for (int i = 0; i < normalCardNum; i++) {
+            map[i] = gameState.new Army(-1, 0, i);
+        }
+        gameState.setMap(map);
+        GameState.Player[] players = new GameState.Player[this.playersListView.getItems().size()];
+        for (int i = 0; i < players.length; i++) {
+            players[i] = gameState.new Player(this.playersListView.getItems().get(i), i, new ArrayList<GameState.Card>());
+        }
+        gameState.setPlayers(players);
+        gameState.setGamePhase(0);
+        gameState.setTurnToken(0);
+        GameState.Card[] deck = new GameState.Card[42];
+        for (int i = 0; i < normalCardNum; i++) {
+            deck[i] = gameState.new Card(i, i % cardType);
+        }
+        gameState.setDeck(deck);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = "";
+        try {
+            json = mapper.writeValueAsString(gameState);
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        System.out.println(json);
+        Invoker.sendGameState(json);
     }
 
     @FXML
@@ -211,11 +256,21 @@ public class HostSessionController implements Initializable {
 
 class GameSetup {
     private String map;
-    private List<Pair> players;
+    private List<PlayerColorPair> players;
+    private Map<String, Boolean> rules;
 
-    GameSetup(String map, List<Pair> players) {
+    GameSetup(String map, Map<String, Boolean> rules, List<PlayerColorPair> players) {
         this.map = map;
+        this.rules = rules;
         this.players = players;
+    }
+
+    public Map<String, Boolean> getRules() {
+        return rules;
+    }
+
+    public void setRules(Map<String, Boolean> rules) {
+        this.rules = rules;
     }
 
     public String getMap() {
@@ -226,38 +281,40 @@ class GameSetup {
         this.map = map;
     }
 
-    public List<Pair> getPlayers() {
+    public List<PlayerColorPair> getPlayers() {
         return players;
     }
 
-    public void setPlayers(List<Pair> players) {
+    public void setPlayers(List<PlayerColorPair> players) {
         this.players = players;
     }
 
+    static class PlayerColorPair {
+        private String playerName;
+        private String color;
+
+        PlayerColorPair(String playerName, String color) {
+            this.playerName = playerName;
+            this.color = color;
+        }
+
+        public String getPlayerName() {
+            return playerName;
+        }
+
+        public void setPlayerName(String playerName) {
+            this.playerName = playerName;
+        }
+
+        public String getColor() {
+            return color;
+        }
+
+        public void setColor(String color) {
+            this.color = color;
+        }
+    }
 }
 
-class Pair {
-    private String playerName;
-    private String color;
 
-    Pair(String playerName, String color) {
-        this.playerName = playerName;
-        this.color = color;
-    }
 
-    public String getPlayerName() {
-        return playerName;
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-}

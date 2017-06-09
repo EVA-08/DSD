@@ -5,49 +5,81 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8"
             fx:controller="controller.HostSessionController">
+    <children>
 
-    <ImageView fitHeight="480.0" fitWidth="720.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="480.0" fitWidth="720.0" pickOnBounds="true" preserveRatio="true">
+            <image>
 
-        <Image url="@../resources/HostSession.jpg"/>
+                <Image url="@../resources/HostSession.jpg"/>
+            </image>
 
-    </ImageView>
-    <ListView fx:id="playersListView" layoutX="148.0" layoutY="60.0" opacity="0.8" prefHeight="259.0"
-              prefWidth="147.0"/>
-    <Group fx:id="optionsGroup" layoutX="147.0" layoutY="7.0">
+        </ImageView>
+        <ListView fx:id="playersListView" layoutX="148.0" layoutY="60.0" opacity="0.8" prefHeight="259.0"
+                  prefWidth="147.0"/>
+        <Group fx:id="optionsGroup" layoutX="147.0" layoutY="7.0">
+            <children>
 
-        <ChoiceBox fx:id="cardChoiceBox" layoutX="279.0" layoutY="239.0" opacity="0.8" prefWidth="150.0"/>
-        <ChoiceBox fx:id="playerNumberChoiceBox" layoutX="279.0" layoutY="53.0" opacity="0.8"
-                   prefWidth="150.0"/>
-        <ChoiceBox fx:id="mapChoiceBox" layoutX="279.0" layoutY="111.0" opacity="0.8" prefWidth="150.0"/>
-        <ChoiceBox fx:id="ruleChoiceBox" layoutX="279.0" layoutY="164.0" opacity="0.8" prefWidth="150.0"/>
+                <ChoiceBox fx:id="cardChoiceBox" layoutX="279.0" layoutY="261.0" opacity="0.8" prefWidth="150.0"/>
+                <ChoiceBox fx:id="playerNumberChoiceBox" layoutX="279.0" layoutY="81.0" opacity="0.8"
+                           prefWidth="150.0"/>
+                <ChoiceBox fx:id="mapChoiceBox" layoutX="279.0" layoutY="145.0" opacity="0.8" prefWidth="150.0"/>
+                <ChoiceBox fx:id="ruleChoiceBox" layoutX="279.0" layoutY="201.0" opacity="0.8" prefWidth="150.0"/>
                 <Button fx:id="changeButton" layoutX="369.0" layoutY="311.0" mnemonicParsing="false"
                         onAction="#changeOptionsHandler" opacity="0.8" prefHeight="32.0" prefWidth="72.0" text="Change">
                     <font>
                         <Font size="14.0"/>
                     </font>
                 </Button>
+                <Label layoutX="341.0" layoutY="118.0" text="Map" textFill="#f50808">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="340.0" layoutY="182.0" text="Rule" textFill="#f50808">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="334.0" layoutY="238.0" text="Cards" textFill="#f50808">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+            </children>
 
-    </Group>
-    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="94.0" layoutY="21.0" prefHeight="15.0"
-           prefWidth="147.0" text="Players List" textAlignment="CENTER"/>
-    <Button fx:id="inviteButton" layoutX="186.0" layoutY="316.0" mnemonicParsing="false"
-            onAction="#inviteButtonHandler" opacity="0.8" prefHeight="35.0" prefWidth="110.0" text="Invite Players">
-        <font>
-            <Font size="14.0"/>
-        </font>
-    </Button>
+        </Group>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="94.0" layoutY="21.0" prefHeight="15.0"
+               prefWidth="147.0" text="Players List" textAlignment="CENTER"/>
+        <Button fx:id="inviteButton" layoutX="186.0" layoutY="316.0" mnemonicParsing="false"
+                onAction="#inviteButtonHandler" opacity="0.8" prefHeight="35.0" prefWidth="110.0" text="Invite Players">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Button>
         <Label fx:id="warningLabel" alignment="CENTER" layoutX="148.0" layoutY="361.0" prefHeight="15.0"
                prefWidth="211.0" text="Label" textFill="RED" visible="false"/>
-    <Button fx:id="startButton" layoutX="267.0" layoutY="395.0" mnemonicParsing="false"
-            onAction="#startButtonHandler" opacity="0.8" prefHeight="45.0" prefWidth="184.0" text="Start">
-        <font>
-            <Font name="System Bold" size="16.0"/>
-        </font>
-    </Button>
-    <Button mnemonicParsing="false" onAction="#backButtonHandler" opacity="0.8" prefHeight="45.0" prefWidth="57.0"
-            text="Back"/>
+        <Button fx:id="startButton" layoutX="267.0" layoutY="395.0" mnemonicParsing="false"
+                onAction="#startButtonHandler" opacity="0.8" prefHeight="45.0" prefWidth="184.0" text="Start">
+            <font>
+                <Font name="System Bold" size="16.0"/>
+            </font>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#backButtonHandler" opacity="0.8" prefHeight="45.0" prefWidth="57.0"
+                text="Back"/>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="148.0" layoutY="32.0" prefHeight="15.0"
+               prefWidth="147.0" text="Players List" textFill="RED">
+            <font>
+                <Font name="System Bold" size="20.0"/>
+            </font>
+        </Label>
+        <Label layoutX="450.0" layoutY="60.0" text="Players Number" textFill="#f50808">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Label>
+    </children>
 
 </AnchorPane>

@@ -1,35 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.Group?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="403.0" prefWidth="553.0" xmlns="http://javafx.com/javafx/8"
             fx:controller="controller.GuestSessionController">
+    <children>
 
-    <ImageView fitHeight="480.0" fitWidth="720.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="480.0" fitWidth="720.0" pickOnBounds="true" preserveRatio="true">
+            <image>
 
-        <Image url="@../resources/HostSession.jpg"/>
+                <Image url="@../resources/HostSession.jpg"/>
+            </image>
 
-    </ImageView>
-    <ListView fx:id="playersListView" layoutX="94.0" layoutY="39.0" opacity="0.8" prefHeight="259.0"
-              prefWidth="147.0"/>
-        <Group fx:id="optionsGroup" disable="true" layoutX="60.0" layoutY="-25.0">
-
-                <ChoiceBox fx:id="cardChoiceBox" layoutX="279.0" layoutY="239.0" prefWidth="150.0"/>
-                <ChoiceBox fx:id="playerNumberChoiceBox" layoutX="279.0" layoutY="53.0" prefWidth="150.0"/>
-                <ChoiceBox fx:id="mapChoiceBox" layoutX="279.0" layoutY="111.0" prefWidth="150.0"/>
-                <ChoiceBox fx:id="ruleChoiceBox" layoutX="279.0" layoutY="164.0" prefWidth="150.0"/>
-
-        </Group>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="94.0" layoutY="14.0" prefHeight="15.0"
-               prefWidth="147.0" text="Players List" textAlignment="CENTER"/>
+        </ImageView>
+        <ListView fx:id="playersListView" layoutX="94.0" layoutY="75.0" opacity="0.8" prefHeight="259.0"
+                  prefWidth="147.0"/>
+        <ChoiceBox fx:id="mapChoiceBox" layoutX="408.0" layoutY="157.0" prefWidth="150.0"/>
+        <ChoiceBox fx:id="ruleChoiceBox" layoutX="407.0" layoutY="229.0" prefWidth="150.0"/>
+        <Label layoutX="462.0" layoutY="267.0" text="Cards" textFill="#f50808">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Label>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="94.0" layoutY="44.0" prefHeight="15.0"
+               prefWidth="147.0" text="Players List" textFill="RED">
+            <font>
+                <Font name="System Bold" size="20.0"/>
+            </font>
+        </Label>
         <Label fx:id="warningLabel" alignment="CENTER" layoutX="148.0" layoutY="361.0" prefHeight="15.0"
                prefWidth="211.0" text="Label" textFill="RED" visible="false"/>
-        <Button fx:id="readyButton" layoutX="205.0" layoutY="346.0" mnemonicParsing="false"
-                onAction="#readyButtonHandler" opacity="0.8" prefHeight="45.0" prefWidth="184.0" text="Ready"/>
-    <Button layoutY="-1.0" mnemonicParsing="false" onAction="#backButtonHandler" opacity="0.8" prefHeight="45.0"
-            prefWidth="57.0" text="Back"/>
+        <Button fx:id="readyButton" layoutX="224.0" layoutY="354.0" mnemonicParsing="false"
+                onAction="#readyButtonHandler" opacity="0.8" prefHeight="45.0" prefWidth="184.0" text="Ready">
+            <font>
+                <Font name="System Bold" size="16.0"/>
+            </font>
+        </Button>
+        <Button layoutY="-1.0" mnemonicParsing="false" onAction="#backButtonHandler" opacity="0.8" prefHeight="45.0"
+                prefWidth="57.0" text="Back"/>
+        <Label contentDisplay="CENTER" layoutX="425.0" layoutY="65.0" text="Players Number" textFill="#f50808">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Label>
+        <ChoiceBox fx:id="playerNumberChoiceBox" layoutX="407.0" layoutY="96.0" prefWidth="150.0"/>
+
+        <ChoiceBox fx:id="cardChoiceBox" layoutX="407.0" layoutY="296.0" prefWidth="150.0"/>
+        <Label layoutX="467.0" layoutY="195.0" text="Rule" textFill="#f50808">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Label>
+        <Label layoutX="466.0" layoutY="125.0" text="Map" textFill="#f50808">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Label>
+    </children>
 
 </AnchorPane>

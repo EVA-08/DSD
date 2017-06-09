@@ -4,6 +4,7 @@
       <root url="jar://D:/javaJDK/jackson/jackson-annotations-2.8.8.jar!/" />
       <root url="jar://D:/javaJDK/jackson/jackson-core-2.8.8.jar!/" />
       <root url="jar://D:/javaJDK/jackson/jackson-databind-2.8.8.jar!/" />
+      <root url="jar://D:/javaJDK/jackson/gson-2.3.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
