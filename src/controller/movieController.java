@@ -27,7 +27,7 @@ public class movieController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        String path = "file:///" + getClass().getResource("/resources/movie.mp4").getPath();
+        String path = "file:///" + getClass().getResource("/resources/movie.m4v").getPath();
         Media media = new Media(path);
         player = new MediaPlayer(media);
         player.setOnEndOfMedia(() -> {
